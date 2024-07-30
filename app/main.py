@@ -32,7 +32,7 @@ app.add_middleware(
 # os.environ["COHERE_API_KEY"] = getpass.getpass("Enter your Cohere API key: ")
 
 
-llm = ChatGroq(temperature=0, model_name="mixtral-8x7b-32768")
+llm = ChatGroq(temperature=0, model_name="llama-3.1-70b-versatile")
 
 # Initial setup
 contextualize_q_system_prompt = (
@@ -147,4 +147,4 @@ async def ask_question(query: QueryModel):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
