@@ -6,3 +6,4 @@ starlette~=0.37.2
 langchain-chroma==0.1.1
 langchain-community==0.2.7
 langchain-cohere==0.1.9
+Jinja2
