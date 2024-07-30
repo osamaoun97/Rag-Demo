@@ -15,12 +15,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import os
-import getpass
 import uuid
 
 app = FastAPI()
-
-os.environ["COHERE_API_KEY"] = getpass.getpass()
 
 app.add_middleware(
     CORSMiddleware,
