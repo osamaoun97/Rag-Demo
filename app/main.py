@@ -16,6 +16,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import os
 import uuid
+import getpass
+from langchain_groq import ChatGroq
 
 app = FastAPI()
 
@@ -26,8 +28,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+# os.environ["GROQ_API_KEY"] = getpass.getpass("Enter your Groq API key: ")
+# os.environ["COHERE_API_KEY"] = getpass.getpass("Enter your Cohere API key: ")
 
-llm = ChatCohere(model="command-r-plus")
+
+llm = ChatGroq(temperature=0, model_name="mixtral-8x7b-32768")
 
 # Initial setup
 contextualize_q_system_prompt = (
@@ -142,4 +147,4 @@ async def ask_question(query: QueryModel):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="localhost", port=8000)
