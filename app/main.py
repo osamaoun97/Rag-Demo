@@ -16,7 +16,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import os
 import uuid
-import getpass
 from langchain_groq import ChatGroq
 
 app = FastAPI()
@@ -28,11 +27,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# os.environ["GROQ_API_KEY"] = getpass.getpass("Enter your Groq API key: ")
-# os.environ["COHERE_API_KEY"] = getpass.getpass("Enter your Cohere API key: ")
-
-
-llm = ChatGroq(temperature=0, model_name="llama-3.1-70b-versatile")
+groq_api_key = os.environ['GROQ_API_KEY']
+llm = ChatGroq(model_name="llama-3.1-70b-versatile",groq_api_key=groq_api_key)
 
 # Initial setup
 contextualize_q_system_prompt = (
@@ -51,11 +47,7 @@ contextualize_q_prompt = ChatPromptTemplate.from_messages(
 )
 
 system_prompt = (
-    "أنت مساعد لمهام الإجابة على الأسئلة. "
-    "استخدم القطع السياقية المسترجعة التالية للإجابة "
-    "على السؤال. إذا كنت لا تعرف الإجابة، قل أنك "
-    "لا تعرف. استخدم ثلاث جمل كحد أقصى وابقَ الإجابة مختصرة."
-    "قم بالاجابة باللغة العربية فقط لا غير."
+    "استخدم المستندات الفريدة التالية في قسم السياق للإجابة على الاستعلام في النهاية. إذا كنت لا تعرف الإجابة، قل فقط أنك لا تعرف، ولا تحاول اختلاق إجابة. "
     "\n\n"
     "{context}"
 )
