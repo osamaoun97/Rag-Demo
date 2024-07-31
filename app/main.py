@@ -28,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 groq_api_key = os.environ['GROQ_API_KEY']
-llm = ChatGroq(model_name="llama-3-70b-8192", groq_api_key=groq_api_key)
+llm = ChatGroq(model_name="llama3-70b-8192", groq_api_key=groq_api_key)
 
 # Initial setup
 contextualize_q_system_prompt = (
